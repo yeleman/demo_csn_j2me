@@ -1,0 +1,8 @@
+MIDlet-1: CnsMIDlet,,csn.CnsMIDlet
+MIDlet-Jar-Size: 536485
+MIDlet-Jar-URL: demo_csn.jar
+MIDlet-Name: demo_csn
+MIDlet-Vendor: Yeleman s.à.r.l
+MIDlet-Version: 0.1
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.0
