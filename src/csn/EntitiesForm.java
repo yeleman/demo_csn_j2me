@@ -67,18 +67,18 @@ public class EntitiesForm extends Form implements CommandListener {
 
             health_centerField = new ChoiceGroup("Aire de santé:", ChoiceGroup.POPUP,
                                                  snisi.entities.Utils.hcenters_names(district_code), null);
-            health_center_code = snisi.entities.Utils.hcenters_codes(district_code)[health_centerField.getSelectedIndex()];
-
             append(health_centerField);
             removeCommand(CMD_CONTINUE_2);
             addCommand(CMD_CONTINUE_3);
         }
 
         if (c == CMD_CONTINUE_3) {
-            System.out.println("Find village with "+ district_code + "and healh_center code" + health_center_code);
+            System.out.println("District: "+ district_code + " Aire sanitaire: " + health_center_code);
+            health_center_code = snisi.entities.Utils.hcenters_codes(district_code)[health_centerField.getSelectedIndex()];
             locationField = new ChoiceGroup("Village:",ChoiceGroup.POPUP,
                                         snisi.entities.Utils.villages_names(district_code,
                                         health_center_code), null);
+
             try {
                 village_name = snisi.entities.Utils.villages_names(district_code,
                                                                    health_center_code)[locationField.getSelectedIndex()];
@@ -88,9 +88,18 @@ public class EntitiesForm extends Form implements CommandListener {
                 append(locationField);
                 removeCommand(CMD_CONTINUE_3);
             } catch (Exception e) {
-                village_code = "Vide";
-                village_name = "vide";
-                System.out.println(village_code);
+                Alert alert;
+                alert = new Alert("Village non trouver", "Aucun village n'a "
+                                  + "été trouvé pour l'aire de santé de "
+                                  + snisi.entities.Utils.hcenters_names(district_code)[health_centerField.getSelectedIndex()]
+                                  + "/" + health_center_code
+                                  + ".", null,
+                                   AlertType.INFO);
+                alert.setTimeout(Alert.FOREVER);
+                this.midlet.display.setCurrent (alert, this);
+
+                // System.out.println(village_code);
+                return;
             }
             addCommand(CMD_DISPLAY);
         }
@@ -99,7 +108,7 @@ public class EntitiesForm extends Form implements CommandListener {
             Alert alert;
             String sep = " | ";
                 alert = new Alert ("Voici votre selection",
-                                   "Region | code \n "
+                                   "Region / code \n "
                                    + snisi.entities.Utils.regions_names()[regionField.getSelectedIndex()]
                                    + sep + snisi.entities.Utils.regions_codes()[regionField.getSelectedIndex()]
                                    + "\nDistrict / code\n "
