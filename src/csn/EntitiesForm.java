@@ -108,16 +108,16 @@ public class EntitiesForm extends Form implements CommandListener {
             Alert alert;
             String sep = " | ";
                 alert = new Alert ("Voici votre selection",
-                                   "Region / code \n "
+                                   "Region "+ sep + "code \n"
                                    + snisi.entities.Utils.regions_names()[regionField.getSelectedIndex()]
                                    + sep + snisi.entities.Utils.regions_codes()[regionField.getSelectedIndex()]
-                                   + "\nDistrict / code\n "
+                                   + "\nDistrict "+ sep + "code\n"
                                    + snisi.entities.Utils.districts_names(regions[regionField.getSelectedIndex()])[districtField.getSelectedIndex()]
                                    + sep + district_code
-                                   + "\nAire de santé / code\n "
+                                   + "\nAire de santé "+ sep + "code\n"
                                    + snisi.entities.Utils.hcenters_names(district_code)[health_centerField.getSelectedIndex()]
                                    + sep + health_center_code
-                                   + "\nVillage / code \n "
+                                   + "\nVillage "+ sep + "code \n"
                                    + village_name + sep + village_code,
                                    null, AlertType.INFO);
                 this.midlet.display.setCurrent (alert, this);
